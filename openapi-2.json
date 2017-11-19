@@ -7839,7 +7839,7 @@
         }
       ]
     },
-    "BungieMembershipType[]": {
+    "BungieMembershipType": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/BungieMembershipType"
