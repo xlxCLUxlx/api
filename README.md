@@ -6,11 +6,11 @@ Documentation as one single, gigantic page: https://bungie-net.github.io
 
 This section will be added to as time goes by - we're working with it as we go!
 
-2017-10-19 - A deployment has just been released that should fix a variety of bugs.  The spec and docs have been regenerated and are now ready for consumption.  Unfortunately, pretty much all of the still-pending spec bugs have not been able to be addressed yet.  Hopefully we will find some time to address those in upcoming deployments.
+12-12-2017 - The API has been updated again!  See the new CHANGELOG.md (thanks for the suggestion hskrasek!) where I'll put the details of subsequent releases from now on instead of cramming them all in the readme.
 
 # The State of the API
 
-The API itself is currently offline in anticipation of the release of Destiny 2.  We have this site as a special sneak preview of the data that will be provided by the API when it comes online.
+The API itself is online, however several endpoints are still in a beta or unusable state.  Stay posted and keep an eye peeled on the documentation for further updates.
 
 # I'm New to the API.  What can I do with it?
 - (TODO: Create a grand overview tour of Destiny API features for new users in wiki, including how to get mobile databases and what the heck a mobile database is)
@@ -53,10 +53,7 @@ The API itself is currently offline in anticipation of the release of Destiny 2.
 # What Endpoints are not ready?
 
 - ### Vendors
-  - We discovered breaking changes with how Vendors work under the surface pretty late in our development cycle, and were unable to recover in time to stabilize both it and our other features in time to ship.  Those of you who used Vendors in Destiny 1 remember the great Vendor meltdown of 2016.  The implementation that I built to work around said performance meltdown will no longer work in Destiny 2, which puts me back at the drawing board for finding a way to expose Vendor data in an efficient enough manner to melt neither our servers nor the game's servers.  I regret this deeply - particularly discovering it so late and thus not having time to pivot - but I am using this opportunity to pre-release the proposal for the format in which the Vendor calls will return data for review while I continue to work on making Vendors function again.  It is one of the highest priorities on my plate for post-ship.
-
-- ### Stats (working, but may have bugs)
-  - Stats are pretty much in working order, and as you will see their endpoints have not really changed at all.  These *should* be functioning as desired, but I mark them as Pending because they have not been given as thorough of a review for edge cases as the other Destiny features, because BNet itself isn't currently exposing any stats related features.  This is another high-priority task for future improvements of the site, which will also bring about improvements to the API as a result when our attention can be turned back to it as a team.
+  - We discovered breaking changes with how Vendors work under the surface pretty late in our development cycle, and were unable to recover in time to stabilize both it and our other features in time to ship.  Those of you who used Vendors in Destiny 1 remember the great Vendor meltdown of 2016.  The implementation that I built to work around said performance meltdown will no longer work in Destiny 2, which puts me back at the drawing board for finding a way to expose Vendor data in an efficient enough manner to melt neither our servers nor the game's servers.  I regret this deeply - particularly discovering it so late and thus not having time to pivot - but I am using this opportunity to pre-release the proposal for the format in which the Vendor calls will return data for review while I continue to work on making Vendors function again.  It is one of the highest priorities on my plate for post-ship. (2017-12-07 as a small update, in practice this ended up not being my highest priority: but I've been chipping away at it as time allows, and hope to have something usable soon.)
   
 # Swagger/OpenAPI Specs (or, how to generate your own clients for the BNet API)
 
@@ -121,24 +118,6 @@ NOTE: There are currently bugs in the generated documentation: it worked well en
 
 - There is currently no way to know what reward item you will get for completing a Milestone's quest.  The DestinyMilestoneDefinition defines these rewards, but late in development we realized merely returning this information is insufficient: only a subset of these are possible to be obtained at any given time.  A future release will have the live Milestone data return the "active" rewards so that you can show the correct reward being offered at any given time.
 
-- The pgcrImage property on DestinyActivityDefinition is missing the /img/destiny_content/pgcr/ prefix to its path, causing the image to not be found.  This will be fixed in the next hotfix.
-
-- There are reports of missing PGCR data: particularly the "extended" and "teams" properties.  We have filed a bug and will investigate as time allows.
-
 - If our environment goes down entirely, to the point where we can no longer process your request, we are currently returning the same static error HTML page(s) to any API request that the website is returning.  If you get an HTML response to an API request, know that this is the undesirable side effect of our environment being down and handle it with your own messaging and error handling as needed.
 
-# Release History
-
-2017-10-11 - Yesterday we un-redacted several entities and introduced the Iron Banner milestones, which had some problems that should be resolved as of a deployment that will take place later this morning.  In other news, the delays caused by my absence will push out the Vendor API from being in a beta ready state - I'm hoping to have this ready for use sometime in November as a result.  I apologize for the delays, and will try to keep you all posted here.
-
-2017-10-04 - I apologize for the lack of contact lately.  I had an unexpected family emergency, and was not in a situation where I could communicate here.  I'm back now, and attempting to get caught up on what I have missed over the last 2 weeks - unfortunately, some efforts that I have been working on have been delayed as a result.  I also haven't had a chance to look at issues that have been created over the last couple of weeks - I will attempt to find some time to evaluate and respond to those as needed, but please bear with me as I attempt to balance working on the existing delayed features with responding to requests.  Thanks for your understanding, I look forward to continuing to improve the API and working with you all.
-
-2017-09-15 - Content-only release to un-redact various Trials of the Nine related content.  No meaningful changes to API at this time. (though the un-redaction of Trials' DestinyActivityModeDefinition will mean that queries requesting this mode should no longer fail)
-
-2017-09-13 - Documentation updated to co-incide with the 9/13 release of Bungie.Net.
-- Fixes for a variety of issues with Historical Stats APIs
-- All relevant Activity Modes are now returned with historical stats results for an Activity, so that you can better know (for a D1-compatible example) when an activity was Control and Trials of Osiris.  The old result that returned just the most specific activity mode still exists for backwards compatibility.
-- Added the requested 
-- Fixed a variety of bugs, both in the API and documentation
-- Exposing the Groups API for public consumption
-- Added the GetDestinyEntityDefinition endpoint by popular request.  I strongly urge you not to use it outside of very trivial or educational purposes, as all of our definitions are very tightly interrelated: and to get at meaningful data for an entity, you will often have to have the definitions of several different entities.  But for the most simple/educational/investigatory use cases, this should serve your needs.
+- Vendors are still not terribly useful.  They exist in an extremely early pre-release form.  The items returned should be accurate for a given character, but their stats and any other attributes will almost certainly be incorrect.  The contract itself is still also subject to change.
