@@ -13,7 +13,7 @@
       "name": "BSD License 2.0",
       "url": "https://github.com/Bungie-net/api/blob/master/LICENSE"
     },
-    "version": "2.0.1"
+    "version": "2.1.1"
   },
   "host": "www.bungie.net",
   "basePath": "/Platform",
@@ -7845,12 +7845,6 @@
         }
       ]
     },
-    "BungieMembershipType": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/BungieMembershipType"
-      }
-    },
     "GroupsV2.HostGuidedGamesPermissionLevel": {
       "format": "int32",
       "description": "Used for setting the guided game permission level override (admins and founders can always host guided games).",
@@ -8531,20 +8525,20 @@
       "type": "object",
       "properties": {
         "red": {
-          "format": "byte",
-          "type": "string"
+          "format": "int32",
+          "type": "integer"
         },
         "green": {
-          "format": "byte",
-          "type": "string"
+          "format": "int32",
+          "type": "integer"
         },
         "blue": {
-          "format": "byte",
-          "type": "string"
+          "format": "int32",
+          "type": "integer"
         },
         "alpha": {
-          "format": "byte",
-          "type": "string"
+          "format": "int32",
+          "type": "integer"
         }
       }
     },
@@ -22984,9 +22978,7 @@
       },
       "additionalProperties": {
         "type": "object",
-        "additionalProperties": {
-          "$ref": "#/definitions/Destiny.HistoricalStats.DestinyLeaderboard"
-        }
+        "$ref": "#/definitions/Destiny.HistoricalStats.DestinyLeaderboard"
       }
     },
     "Destiny.HistoricalStats.DestinyClanAggregateStat": {
@@ -23168,6 +23160,7 @@
     "Destiny.HistoricalStats.DestinyHistoricalStatsResults": {
       "type": "object",
       "additionalProperties": {
+	    "type": "object",
         "$ref": "#/definitions/Destiny.HistoricalStats.DestinyHistoricalStatsByPeriod"
       }
     },
